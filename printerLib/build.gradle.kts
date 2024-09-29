@@ -30,6 +30,7 @@ kotlin {
 
         commonMain.dependencies {
             //put your multiplatform dependencies here
+            implementation(libs.ktor.network)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
