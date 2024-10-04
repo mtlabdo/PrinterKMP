@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
+    id("com.vanniktech.maven.publish") version "0.28.0" apply false
+    id("com.gradleup.nmcp") version "0.0.7" apply false
 }
