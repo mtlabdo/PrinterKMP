@@ -142,7 +142,7 @@ class PrinterTextParserColumn(textParserLine: PrinterTextParserLine, oldTextColu
             closeTagIndex++
             val textParserTag =
                 PrinterTextParserTag(textColumn.substring(openTagIndex, closeTagIndex))
-            offset = if (CoroutinesPrinterTextParser.isTagTextFormat(textParserTag.tagName)) {
+            offset = if (PrinterTextParser.isTagTextFormat(textParserTag.tagName)) {
                 if (textParserTag.isCloseTag) {
                     when (textParserTag.tagName) {
                         PrinterTextParser.TAGS_FORMAT_TEXT_BOLD -> textParser.dropTextBold()
