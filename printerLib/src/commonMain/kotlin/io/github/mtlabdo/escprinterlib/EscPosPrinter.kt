@@ -206,7 +206,7 @@ class EscPosPrinter(
 
         this.printFormattedText(text, dotsFeedPaper)
 
-        //this.printer.cutPaper();
+         this.printer!!.cutPaper();
         return this
     }
 

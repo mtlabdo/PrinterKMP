@@ -16,7 +16,8 @@ class CoroutinesEscPosPrinter(
     var printer: CoroutinesEscPosPrinterCommands?,
     printerDpi: Int,
     printerWidthMM: Float,
-    printerNbrCharactersPerLine: Int
+    printerNbrCharactersPerLine: Int,
+    private var cutPaper: Boolean = true
 ) : EscPosPrinterSize(printerDpi, printerWidthMM, printerNbrCharactersPerLine) {
 
     /**
@@ -31,12 +32,14 @@ class CoroutinesEscPosPrinter(
         printerConnection: TcpDeviceConnection?,
         printerDpi: Int,
         printerWidthMM: Float,
-        printerNbrCharactersPerLine: Int
+        printerNbrCharactersPerLine: Int,
+        cutPaper: Boolean = true
     ) : this(
         printerConnection?.let { CoroutinesEscPosPrinterCommands(it) },
         printerDpi,
         printerWidthMM,
-        printerNbrCharactersPerLine
+        printerNbrCharactersPerLine,
+        cutPaper
     )
 
     /**
@@ -53,12 +56,14 @@ class CoroutinesEscPosPrinter(
         printerDpi: Int,
         printerWidthMM: Float,
         printerNbrCharactersPerLine: Int,
-        charsetEncoding: EscPosCharsetEncoding?
+        charsetEncoding: EscPosCharsetEncoding?,
+        cutPaper: Boolean = true
     ) : this(
         printerConnection?.let { CoroutinesEscPosPrinterCommands(it, charsetEncoding) },
         printerDpi,
         printerWidthMM,
-        printerNbrCharactersPerLine
+        printerNbrCharactersPerLine,
+        cutPaper
     )
 
     /**
@@ -185,7 +190,9 @@ class CoroutinesEscPosPrinter(
         }
 
         this.printFormattedText(text, dotsFeedPaper)
-        //printer!!.cutPaper(context)
+        if (cutPaper) {
+            printer!!.cutPaper()
+        }
         return this
     }
 

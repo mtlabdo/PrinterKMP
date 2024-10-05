@@ -6,9 +6,9 @@ import io.github.mtlabdo.escprinterlib.exceptions.PrintingException
 import io.github.mtlabdo.escprinterlib.exceptions.onException
 
 
-class CoroutinesEscPosPrint() {
+class CoroutinesEscPosPrint {
 
-    suspend fun execute(vararg printersData: CoroutinesEscPosPrinter) {
+    suspend fun execute(vararg printersData: CoroutinesEscPosPrinter, cutPaper : Boolean) {
         if (printersData.isEmpty())
             return onException(PrintingException.FINISH_NO_PRINTER)
 
@@ -25,7 +25,8 @@ class CoroutinesEscPosPrint() {
             printerData.printerDpi,
             printerData.printerWidthMM,
             printerData.printerNbrCharactersPerLine,
-            EscPosCharsetEncoding("Arabic", 22)
+            EscPosCharsetEncoding("Arabic", 22),
+            cutPaper = cutPaper
         )
 
         printer.printFormattedTextAndCut(printerData.textToPrint)
