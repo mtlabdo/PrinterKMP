@@ -1,14 +1,49 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
+# 🔥 ESC/POS Thermal Printer Library for Kotlin Multiplatform (KMP) 
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+Cette bibliothèque Kotlin Multiplatform (KMP) permet l'impression sur des imprimantes thermiques ESC/POS via Bluetooth, TCP et USB. Elle est compatible avec les projets Android et Desktop, et peut être étendue à d'autres plateformes supportées par KMP.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+⭐ **Star ce dépôt** pour soutenir ce projet et augmenter sa visibilité auprès des développeurs ayant besoin d'une solution multiplateforme pour les imprimantes thermiques ESC/POS ! 😊
+
+## ✨ Fonctionnalités
+
+- **Support multiplateforme** : Fonctionne sur Android, Ios et Desktop.
+- **Compatibilité ESC/POS** : Supporte les commandes ESC/POS pour communiquer avec les imprimantes thermiques.
+- **Options de connectivité multiples** : Connexion via Bluetooth, TCP (Ktot network socket) ou BT (bientôt disponible).
+- **Intégration facile** : Facile à intégrer dans les projets KMP avec une API unifiée pour toutes les plateformes.
+- **Personnalisable** : Possibilité d'étendre et de modifier les capacités d'impression avec des commandes ESC/POS personnalisées.
+
+## 🚀 Démarrage
+
+### Installation
+
+Pour ajouter cette bibliothèque à votre projet, commencez par ajouter les dépendances dans votre fichier `build.gradle.kts` ou `build.gradle`.
+
+Incluez les dépendances suivantes dans le source set `commonMain` :
+
+`io.github.mtlabdo:escprinterlib:$version`
+
+```kotlin
+kotlin {
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("com.example:escpos-library:$version")
+            }
+        }
+    }
+}
+```
+
+## Tested printers
+
+- xprinter thermal receipt printer 80MM
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+
+## Test it !
+To test this library, it's pretty simple !
+
+- Create a directory and open a terminal inside
+- Run git clone https://github.com/mtlabdo/PrinterKMP.git
+- Open the directory with Android Studio
+
