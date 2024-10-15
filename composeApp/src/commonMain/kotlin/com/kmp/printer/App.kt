@@ -58,7 +58,7 @@ private suspend fun printTcp() {
         printer =
             CoroutinesEscPosPrinter(
                 TcpConnection(
-                    "10.117.38.120",
+                    "192.168.1.92",
                     9100
                 ).apply { connect() }, 203, 48f, 32
             )

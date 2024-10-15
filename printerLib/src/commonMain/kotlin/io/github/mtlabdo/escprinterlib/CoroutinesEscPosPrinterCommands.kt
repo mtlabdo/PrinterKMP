@@ -4,6 +4,8 @@ package io.github.mtlabdo.escprinterlib
 import io.github.mtlabdo.escprinterlib.connection.tcp.TcpDeviceConnection
 import io.github.mtlabdo.escprinterlib.exceptions.EscPosEncodingException
 import io.ktor.utils.io.charsets.Charset
+import io.ktor.utils.io.charsets.Charsets
+import io.ktor.utils.io.charsets.forName
 import io.ktor.utils.io.core.toByteArray
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -119,7 +121,7 @@ class CoroutinesEscPosPrinterCommands  constructor(
             return this
         }
         try {
-            val textBytes = text.toByteArray(Charset.forName(charsetEncoding.name))
+            val textBytes = text.toByteArray(Charsets.forName(charsetEncoding.name))
             printerConnection.write(charsetEncoding.command)
             //this.printerConnection.write(EscPosPrinterCommands.TEXT_FONT_A);
             if (textSize != null) {

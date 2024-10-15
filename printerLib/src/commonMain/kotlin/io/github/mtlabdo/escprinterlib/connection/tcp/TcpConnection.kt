@@ -6,10 +6,9 @@ import io.github.mtlabdo.escprinterlib.exceptions.onException
 
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
-import io.ktor.utils.io.*
-import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.io.IOException
 
 
 /**
@@ -75,7 +74,7 @@ class TcpConnection(private val address: String, private val port: Int) : TcpDev
         data = ByteArray(0)
         if (sendChannel != null) {
             try {
-                sendChannel!!.close()
+                sendChannel!!.flushAndClose()
                 sendChannel = null
             } catch (e: IOException) {
                 e.printStackTrace()
