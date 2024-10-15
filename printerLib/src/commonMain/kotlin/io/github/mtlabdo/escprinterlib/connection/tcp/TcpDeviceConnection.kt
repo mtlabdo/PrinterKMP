@@ -4,13 +4,12 @@ package io.github.mtlabdo.escprinterlib.connection.tcp
 import io.github.mtlabdo.escprinterlib.exceptions.PrintingException
 import io.github.mtlabdo.escprinterlib.exceptions.onException
 import io.ktor.utils.io.*
-import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.delay
 import kotlin.math.floor
 
 abstract class TcpDeviceConnection {
 
-    protected var byteWriteChannel: ByteWriteChannel? = null
+    protected var sendChannel: ByteWriteChannel? = null
 
     protected var data: ByteArray
 
@@ -22,7 +21,7 @@ abstract class TcpDeviceConnection {
      *
      * @return true if is connected
      */
-    open  fun isConnected(): Boolean = this.byteWriteChannel != null
+    open fun isConnected(): Boolean = this.sendChannel != null
 
     /**
      * Add data to send.
@@ -49,18 +48,18 @@ abstract class TcpDeviceConnection {
             return
         }
         try {
-            byteWriteChannel!!.writeFully(data)
-            byteWriteChannel!!.flush()
+            sendChannel!!.writeFully(data)
+            sendChannel!!.flush()
             data = ByteArray(0)
             val waitingTime = addWaitingTime + floor((data.size / 16f).toDouble())
                 .toInt()
             if (waitingTime > 0) {
                 delay(waitingTime.toLong())
             }
-        } catch (e: IOException) {
+        } catch (e: kotlinx.io.IOException) {
             e.printStackTrace()
             onException(PrintingException.FINISH_PRINTER_DISCONNECTED)
-        } catch (e: IOException) {
+        } catch (e: kotlinx.io.IOException) {
             e.printStackTrace()
             onException(PrintingException.FINISH_PRINTER_DISCONNECTED)
         }

@@ -12,7 +12,8 @@ class CoroutinesEscPosPrinter(
     var textToPrint = ""
 
     fun setTextToPrint(textToPrint: String): CoroutinesEscPosPrinter {
-        this.textToPrint = textToPrint
+        //this.textToPrint = textToPrint
+        this.textToPrint = "text"
         return this
     }
 }

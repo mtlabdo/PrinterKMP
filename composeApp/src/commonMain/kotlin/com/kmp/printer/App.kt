@@ -58,7 +58,7 @@ private suspend fun printTcp() {
         printer =
             CoroutinesEscPosPrinter(
                 TcpConnection(
-                    "192.168.1.92",
+                    "10.117.38.120",
                     9100
                 ).apply { connect() }, 203, 48f, 32
             )
@@ -71,8 +71,8 @@ private suspend fun printTcp() {
                 34.98f,
                 4,
                 customer,
-                "83125478455134567890"
-            )
+                "83125478455134567890",
+            ), cutPaper = true
         ).apply { printer = null }
 
     } catch (e: NumberFormatException) {

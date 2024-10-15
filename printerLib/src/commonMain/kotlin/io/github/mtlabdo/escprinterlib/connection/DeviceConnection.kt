@@ -3,14 +3,16 @@ package io.github.mtlabdo.escprinterlib.connection
 
 import io.github.mtlabdo.escprinterlib.exceptions.EscPosConnectionException
 import io.ktor.utils.io.ByteWriteChannel
-import io.ktor.utils.io.errors.IOException
-import io.ktor.utils.io.writeAvailable
+import io.ktor.utils.io.write
+import io.ktor.utils.io.writeBuffer
+import io.ktor.utils.io.writeByteArray
 import kotlinx.coroutines.delay
+import kotlinx.io.IOException
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.math.floor
 
 abstract class DeviceConnection {
-    protected var byteWriteChannel: ByteWriteChannel? = null
+    protected var sendChannel: ByteWriteChannel? = null
 
     protected var data: ByteArray
 
@@ -25,7 +27,7 @@ abstract class DeviceConnection {
      */
 //    open val isConnected: Boolean
 //        get() = stream != null
-    open fun isConnected(): Boolean = this.byteWriteChannel != null
+    open fun isConnected(): Boolean = this.sendChannel != null
 
     /**
      * Add data to send.
@@ -53,8 +55,8 @@ abstract class DeviceConnection {
             throw EscPosConnectionException("Unable to send data to device.")
         }
         try {
-            byteWriteChannel!!.writeAvailable(data)
-            byteWriteChannel!!.flush()
+            sendChannel!!.writeByteArray(data)
+            sendChannel!!.flush()
             data = ByteArray(0)
             val waitingTime = addWaitingTime + floor((data.size / 16f).toDouble())
                 .toInt()
