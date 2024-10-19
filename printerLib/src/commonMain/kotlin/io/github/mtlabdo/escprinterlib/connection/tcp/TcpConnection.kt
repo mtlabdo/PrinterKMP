@@ -6,10 +6,9 @@ import io.github.mtlabdo.escprinterlib.exceptions.onException
 
 import io.ktor.network.selector.*
 import io.ktor.network.sockets.*
-import io.ktor.utils.io.*
-import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.io.IOException
 
 
 /**
@@ -38,7 +37,7 @@ class TcpConnection(private val address: String, private val port: Int) : TcpDev
         try {
             val selectorManager = SelectorManager(Dispatchers.IO)
             socket = aSocket(selectorManager).tcp().connect(address, port)
-            byteWriteChannel = socket!!.openWriteChannel(autoFlush = true)
+            sendChannel = socket!!.openWriteChannel(autoFlush = true)
             val myMessage = "4444"
             //byteWriteChannel!!.writeStringUtf8("$myMessage\n")
             data = ByteArray(0)
@@ -46,7 +45,7 @@ class TcpConnection(private val address: String, private val port: Int) : TcpDev
         } catch (e: IOException) {
             e.printStackTrace()
             socket = null
-            byteWriteChannel = null
+            sendChannel = null
             onException(PrintingException.FINISH_PRINTER_DISCONNECTED)
         }
 
@@ -73,10 +72,10 @@ class TcpConnection(private val address: String, private val port: Int) : TcpDev
      */
     override suspend fun disconnect(): TcpConnection {
         data = ByteArray(0)
-        if (byteWriteChannel != null) {
+        if (sendChannel != null) {
             try {
-                byteWriteChannel!!.close()
-                byteWriteChannel = null
+                sendChannel!!.flushAndClose()
+                sendChannel = null
             } catch (e: IOException) {
                 e.printStackTrace()
             }

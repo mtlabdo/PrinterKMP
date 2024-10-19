@@ -71,8 +71,8 @@ private suspend fun printTcp() {
                 34.98f,
                 4,
                 customer,
-                "83125478455134567890"
-            )
+                "83125478455134567890",
+            ), cutPaper = true
         ).apply { printer = null }
 
     } catch (e: NumberFormatException) {

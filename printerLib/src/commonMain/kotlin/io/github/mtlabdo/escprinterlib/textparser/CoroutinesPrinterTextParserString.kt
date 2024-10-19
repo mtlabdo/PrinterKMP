@@ -4,7 +4,8 @@ import io.github.mtlabdo.escprinterlib.CoroutinesEscPosPrinter
 import io.github.mtlabdo.escprinterlib.CoroutinesEscPosPrinterCommands
 import io.github.mtlabdo.escprinterlib.EscPosPrinterCommands
 import io.github.mtlabdo.escprinterlib.exceptions.EscPosEncodingException
-import io.ktor.utils.io.charsets.Charset
+import io.ktor.utils.io.charsets.Charsets
+import io.ktor.utils.io.charsets.forName
 import io.ktor.utils.io.core.toByteArray
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -28,7 +29,7 @@ class CoroutinesPrinterTextParserString(
             textSize.contentEquals(EscPosPrinterCommands.TEXT_SIZE_BIG)) 2 else 1
 
         return try {
-            text.toByteArray(Charset.forName(charsetEncoding.name)).size * coef
+            text.toByteArray(Charsets.forName(charsetEncoding.name)).size * coef
         } catch (e: Exception) {
             throw EscPosEncodingException(e.message)
         }

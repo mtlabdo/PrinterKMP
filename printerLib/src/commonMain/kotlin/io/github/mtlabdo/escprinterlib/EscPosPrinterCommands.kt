@@ -3,7 +3,6 @@ package io.github.mtlabdo.escprinterlib
 import io.github.mtlabdo.escprinterlib.connection.DeviceConnection
 import io.github.mtlabdo.escprinterlib.exceptions.EscPosConnectionException
 import io.github.mtlabdo.escprinterlib.exceptions.EscPosEncodingException
-import io.ktor.utils.io.charsets.Charset
 import io.ktor.utils.io.core.toByteArray
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.jvm.JvmOverloads
@@ -166,7 +165,7 @@ class EscPosPrinterCommands @JvmOverloads constructor(
 
         try {
             val textBytes: ByteArray = text.toByteArray(
-                Charset.forName(charsetEncoding.name)
+                Charsets.forName(charsetEncoding.name)
             )
             printerConnection.write(charsetEncoding.command)
 

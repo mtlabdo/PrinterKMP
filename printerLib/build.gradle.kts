@@ -20,7 +20,7 @@ kotlin {
 
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
         publishLibraryVariants("release", "debug")
     }
@@ -63,8 +63,8 @@ android {
         minSdk = 24
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
 
@@ -73,7 +73,7 @@ mavenPublishing {
     coordinates(
         groupId = "io.github.mtlabdo",
         artifactId = "escprinterlib",
-        version = "1.0.0"
+        version = "1.2.2"
     )
 
     // Configure POM metadata for the published artifact
